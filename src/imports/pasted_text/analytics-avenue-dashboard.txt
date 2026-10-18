@@ -1,0 +1,356 @@
+Create a high-fidelity enterprise SaaS dashboard UI in Figma for a company called “Analytics Avenue”.
+
+IMPORTANT:
+The UI must closely follow the EXACT structural layout and interaction pattern from the provided reference images.
+
+I do NOT want a marketing website or landing page.
+
+I want a WEB APP DASHBOARD INTERFACE exactly like the reference.
+
+==================================================
+MAIN LAYOUT STRUCTURE
+==================================================
+
+The application layout must contain:
+
+1. Top Header/Navbar
+2. Left Filter Sidebar
+3. Main Solutions Grid
+4. Search + Sort Controls
+5. Expandable Filter Accordions
+6. Solution Cards
+7. Popup Detail Modal
+
+The overall UI should feel like:
+- Enterprise internal platform
+- AI solutions repository
+- Analytics catalog system
+- SaaS dashboard application
+- Corporate demo showcase platform
+
+==================================================
+VISUAL STYLE
+==================================================
+
+Theme:
+- LIGHT THEME ONLY
+- White background
+- Very clean UI
+- Enterprise software aesthetic
+
+Style Reference:
+- Similar spacing and structure from reference images
+- Minimal
+- Flat with subtle shadows
+- Compact enterprise dashboard feel
+- Dense but clean layout
+
+DO NOT create:
+- Fancy landing page
+- Modern glassmorphism site
+- Startup hero section
+- Portfolio website
+
+This should feel like:
+- Enterprise admin dashboard
+- Corporate catalog application
+- Internal solution repository
+
+==================================================
+COLOR SYSTEM
+==================================================
+
+Use a professional color palette different from the reference.
+
+Primary:
+- Deep Teal → #0F766E
+
+Accent:
+- Cyan → #06B6D4
+
+Background:
+- #F8FAFC
+
+Cards:
+- White
+
+Borders:
+- #DCE3EA
+
+Text:
+- #334155
+
+Tags:
+- Soft colored category tags
+
+Hover:
+- Very subtle
+
+==================================================
+HEADER / NAVBAR
+==================================================
+
+Top navigation bar should contain:
+
+LEFT:
+- Analytics Avenue logo
+
+CENTER:
+- Large search bar
+
+RIGHT:
+- User profile avatar
+- Notifications icon
+- Hamburger menu icon
+
+Behavior:
+- Sticky top navbar
+- Minimal height
+- Enterprise app appearance
+
+==================================================
+LEFT SIDEBAR FILTERS
+==================================================
+
+Create EXACTLY like reference structure.
+
+Accordion filter sections:
+
+- Type
+- Industry
+- Function
+- Solution
+- Tech
+
+Each section:
+- Expand/collapse
+- Chevron icon
+- Count badges
+- Scrollable list
+
+Inside filters:
+- Compact list items
+- Number counters on right
+- Hover states
+- Selected states
+
+Example:
+
+Type
+- Dashboard (32)
+- AI Tool (12)
+- Analytics (18)
+- Automation (9)
+
+Industry
+- Finance
+- Healthcare
+- Retail
+- Manufacturing
+- Education
+
+Tech
+- AI
+- Gen AI
+- Power BI
+- Tableau
+- Python
+- Automation
+
+IMPORTANT:
+Sidebar width and proportions should closely match the reference images.
+
+==================================================
+TOP CONTROL BAR
+==================================================
+
+Above solution cards include:
+
+1. Sort dropdown button
+2. Search input
+3. Prompt-style input field:
+   “Describe who you're meeting…”
+
+Exact layout alignment similar to reference.
+
+==================================================
+SOLUTION CARDS
+==================================================
+
+Create compact enterprise cards exactly like the reference structure.
+
+Each card contains:
+
+TOP:
+- Ranking number (#1)
+- Star icon
+- Solution title
+- Optional featured badge
+
+BODY:
+- Short compact description
+- Multi-line truncated text
+
+BOTTOM:
+- Category tags
+- Tech tags
+- Industry tags
+- Date
+- “+ more” badge
+
+Card Style:
+- White card
+- Thin border
+- Very subtle shadow
+- Compact padding
+- Minimal rounded corners
+
+Grid:
+- 2-column desktop layout
+- Responsive behavior
+
+==================================================
+CARD TAGS
+==================================================
+
+Create small compact tags like reference.
+
+Examples:
+- AI
+- Analytics
+- Finance
+- Demo
+- Legal
+- Automation
+- Research
+- Dashboard
+
+Use muted colors.
+
+==================================================
+DETAIL MODAL
+==================================================
+
+Clicking a card opens a centered modal.
+
+Modal should match reference behavior.
+
+Layout:
+LEFT SIDE:
+- Solution title
+- Description
+- CTA button
+
+RIGHT SIDE:
+- Metadata table
+
+Metadata:
+- Updated date
+- Client
+- Industry
+- Function
+- Tech
+- Contact
+
+Add:
+- Close icon top-right
+- White modal
+- Overlay background blur
+- Compact enterprise style
+
+==================================================
+CONTENT / DEMO DATA
+==================================================
+
+Generate realistic demo enterprise solutions:
+
+- AI Financial Intelligence
+- Predictive Analytics Hub
+- Healthcare Claims Automation
+- Retail Demand Forecasting
+- Executive KPI Dashboard
+- Gen AI Knowledge Assistant
+- Customer Churn Prediction
+- Invoice OCR Automation
+- ESG Analytics Tracker
+- Supply Chain Optimizer
+
+Each should include:
+- Short descriptions
+- Multiple tags
+- Dates
+- Metadata
+- Industries
+- Technologies
+
+==================================================
+INTERACTIONS
+==================================================
+
+Design prototype interactions for:
+
+- Sidebar accordion expand/collapse
+- Card hover
+- Modal open/close
+- Search field focus
+- Filter selection
+- Sort dropdown
+- Sidebar scrolling
+
+==================================================
+RESPONSIVE DESIGN
+==================================================
+
+Desktop:
+- Full sidebar
+- 2-column grid
+
+Tablet:
+- Narrow sidebar
+- Compact cards
+
+Mobile:
+- Sidebar drawer
+- Single-column cards
+
+==================================================
+FIGMA REQUIREMENTS
+==================================================
+
+Use:
+- Auto Layout everywhere
+- Reusable components
+- Proper spacing system
+- Consistent typography
+- Organized component library
+
+Create:
+1. Main dashboard screen
+2. Expanded filter states
+3. Modal open state
+4. Mobile responsive version
+5. Tablet version
+6. Components page
+
+==================================================
+IMPORTANT DESIGN DIRECTION
+==================================================
+
+The design should feel:
+- EXACTLY like enterprise dashboard software
+- Similar structure and density to reference
+- Professional corporate tool
+- Internal AI solutions explorer
+
+NOT like:
+- Marketing website
+- Portfolio site
+- Landing page
+- Startup showcase
+
+The UI should look like:
+- A real enterprise application
+- A corporate AI solutions management platform
+- A SaaS admin interface
+
+Maintain the same structural feel, spacing style, compactness, and dashboard behavior from the reference images while upgrading the visual quality professionally.
