@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { ArrowLeft, Briefcase, Shield, Users } from 'lucide-react'
+import { ArrowLeft, Briefcase, Layers, Shield, Users } from 'lucide-react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { Header } from '@/app/components/Header'
 import { PageSuspenseSkeleton } from '@/components/PageSuspenseSkeleton'
@@ -8,6 +8,7 @@ const nav = [
   { to: '/admin', label: 'Overview', end: true },
   { to: '/admin/users', label: 'Users' },
   { to: '/admin/access-management', label: 'Access' },
+  { to: '/admin/project-management', label: 'Projects' },
 ]
 
 export function AdminLayout() {
@@ -41,6 +42,7 @@ export function AdminLayout() {
                 {item.label === 'Overview' && <Shield className="h-4 w-4" />}
                 {item.label === 'Users' && <Users className="h-4 w-4" />}
                 {item.label === 'Access' && <Briefcase className="h-4 w-4" />}
+                {item.label === 'Projects' && <Layers className="h-4 w-4" />}
                 <span>{item.label}</span>
               </NavLink>
             ))}

@@ -94,6 +94,10 @@ const MarketingCampaignPerformanceAnalyzerProjectPage = lazyNamed(() => import('
 const AdminAccessManagementPage = lazyNamed(() => import('@/pages/admin/AdminAccessManagementPage'), 'AdminAccessManagementPage')
 const AdminOverviewPage = lazyNamed(() => import('@/pages/admin/AdminOverviewPage'), 'AdminOverviewPage')
 const AdminUsersPage = lazyNamed(() => import('@/pages/admin/AdminUsersPage'), 'AdminUsersPage')
+const ProjectManagementPage = lazyNamed(() => import('@/pages/admin/ProjectManagementPage'), 'ProjectManagementPage')
+const ProjectWizardPage = lazyNamed(() => import('@/pages/admin/ProjectWizardPage'), 'ProjectWizardPage')
+const ProjectPreviewPage = lazyNamed(() => import('@/pages/admin/ProjectPreviewPage'), 'ProjectPreviewPage')
+const DynamicProjectPage = lazyNamed(() => import('@/pages/projects/DynamicProjectPage'), 'DynamicProjectPage')
 
 export const router = createBrowserRouter([
   { path: '/login', element: <LoginPage />, errorElement: <RouteErrorBoundary /> },
@@ -138,6 +142,7 @@ export const router = createBrowserRouter([
                 element: <RequireApproved />,
                 children: [
                   { path: 'poc/:slug', element: <PocDetailPage /> },
+                  { path: 'published/:slug', element: <DynamicProjectPage /> },
                   // ── Gen AI ──────────────────────────────────────────────────
                   {
                     element: <RequireIndustryAccess industry="Gen AI" />,
@@ -322,6 +327,10 @@ export const router = createBrowserRouter([
                   { index: true, element: <AdminOverviewPage /> },
                   { path: 'users', element: <AdminUsersPage /> },
                   { path: 'access-management', element: <AdminAccessManagementPage /> },
+                  { path: 'project-management', element: <ProjectManagementPage /> },
+                  { path: 'project-management/new', element: <ProjectWizardPage /> },
+                  { path: 'project-management/:id/edit', element: <ProjectWizardPage /> },
+                  { path: 'project-management/:id/preview', element: <ProjectPreviewPage /> },
                 ],
               },
             ],

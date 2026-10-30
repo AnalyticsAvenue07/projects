@@ -9,6 +9,7 @@
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
+    "@aiden0z/pptx-renderer": "^1.4.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@mui/icons-material": "7.3.5",
@@ -56,6 +57,8 @@
     "next-themes": "0.4.6",
     "plotly.js": "^3.6.0",
     "plotly.js-dist-min": "^2.35.2",
+    "powerbi-client": "^2.25.0",
+    "powerbi-client-react": "^2.0.2",
     "react-day-picker": "8.10.1",
     "react-dnd": "16.0.1",
     "react-dnd-html5-backend": "16.0.1",
@@ -72,6 +75,7 @@
     "tailwind-merge": "3.2.0",
     "tw-animate-css": "1.3.8",
     "vaul": "1.1.2",
+    "xlsx": "^0.18.5",
     "zustand": "^5.0.13"
   },
   "devDependencies": {
@@ -79,6 +83,8 @@
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react": "4.7.0",
+    "@xmldom/xmldom": "^0.9.12",
+    "linkedom": "^0.18.13",
     "tailwindcss": "4.1.12",
     "typescript": "^7.0.2",
     "vite": "6.3.5"

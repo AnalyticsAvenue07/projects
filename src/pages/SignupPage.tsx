@@ -59,9 +59,9 @@ export function SignupPage() {
       try {
         // welcome email to user
         void sendWelcome(email, fullName)
-        // admin alert
+        // admin alert (auto-routes to backend ADMIN_EMAIL if VITE_ADMIN_EMAIL is not set)
         const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || ''
-        if (adminEmail) void sendAdminAlert(adminEmail, email, fullName, { company, designation })
+        void sendAdminAlert(adminEmail, email, fullName, { company, designation })
       } catch (e) {
         // swallow errors to avoid breaking UX
         console.error('Email service error', e)

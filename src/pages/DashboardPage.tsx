@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { ControlBar } from '@/app/components/ControlBar'
 import { SolutionCard } from '@/app/components/SolutionCard'
@@ -6,8 +6,14 @@ import { Skeleton } from '@/app/components/ui/skeleton'
 import { EnterpriseEmpty } from '@/components/empty-states/EnterpriseEmpty'
 import { useAuthStore } from '@/stores/authStore'
 import { isStaffRole } from '@/types/domain'
-import { getAllProjects } from '@/config/projects'
-import { fetchAllProjectRegistryItems, fetchMyProjectRegistryItems, getCachedMyProjects } from '@/services/pocs'
+import { getAllProjects, getVisibleProjects } from '@/config/projects'
+import {
+  fetchAllProjectRegistryItems,
+  fetchMyProjectRegistryItems,
+  getCachedMyProjects,
+  mapCatalogItemToRegistryItem,
+} from '@/services/pocs'
+import { ProjectManagementService } from '@/services/projectManagementService'
 import { prefetchRoute } from '@/utils/routePrefetch'
 import { useSearchFilters } from '@/contexts/SearchFiltersContext'
 import type { ProjectRegistryItem } from '@/types/domain'
@@ -21,19 +27,34 @@ export function DashboardPage() {
   const [projects, setProjects] = useState<ProjectRegistryItem[]>(() => {
     if (!profile || profile.status !== 'approved') return []
     if (isStaffRole(profile.role)) {
-      return getAllProjects().filter((p) => p.visible)
+      const staticProjects = getVisibleProjects()
+      try {
+        const dynamicItems = ProjectManagementService.getLocalCatalog()
+          .filter((p) => p.status === 'published' && p.visibility === 'visible')
+          .map(mapCatalogItemToRegistryItem)
+        const seen = new Set<string>()
+        const combined: ProjectRegistryItem[] = []
+        for (const p of [...staticProjects, ...dynamicItems]) {
+          if (!seen.has(p.slug)) {
+            seen.add(p.slug)
+            combined.push(p)
+          }
+        }
+        return combined
+      } catch {
+        return staticProjects
+      }
     }
     return getCachedMyProjects(profile.id) ?? []
   })
 
   const [loadingProjects, setLoadingProjects] = useState(() => {
     if (!profile || profile.status !== 'approved') return false
-    if (isStaffRole(profile.role)) return false
-    return !getCachedMyProjects(profile.id)
+    return false
   })
   const { resultsQuery, selectedFilters } = useSearchFilters()
 
-  useEffect(() => {
+  const loadDashboardProjects = useCallback(async (force = false) => {
     if (!profile || profile.status !== 'approved') {
       setProjects([])
       setLoadingProjects(false)
@@ -41,21 +62,47 @@ export function DashboardPage() {
     }
 
     if (isStaffRole(profile.role)) {
-      setProjects(getAllProjects().filter((project) => project.visible))
-      setLoadingProjects(false)
+      setLoadingProjects(true)
+      try {
+        const rows = await fetchAllProjectRegistryItems()
+        setProjects(rows.filter((p) => p.visible))
+      } catch {
+        setProjects(getVisibleProjects())
+      } finally {
+        setLoadingProjects(false)
+      }
       return
     }
 
     const cached = getCachedMyProjects(profile.id)
-    if (!cached) {
+    if (!force && cached) {
+      setProjects(cached.filter((p) => p.visible))
+    } else {
       setLoadingProjects(true)
     }
 
-    void fetchMyProjectRegistryItems(profile.id)
-      .then((rows) => setProjects(rows))
-      .catch(() => setProjects([]))
-      .finally(() => setLoadingProjects(false))
+    try {
+      const rows = await fetchMyProjectRegistryItems(profile.id, force)
+      setProjects(rows.filter((p) => p.visible))
+    } catch {
+      setProjects([])
+    } finally {
+      setLoadingProjects(false)
+    }
   }, [profile])
+
+  useEffect(() => {
+    void loadDashboardProjects()
+
+    const handleCatalogChanged = () => {
+      void loadDashboardProjects(true)
+    }
+
+    window.addEventListener('aa_project_catalog_changed', handleCatalogChanged)
+    return () => {
+      window.removeEventListener('aa_project_catalog_changed', handleCatalogChanged)
+    }
+  }, [loadDashboardProjects])
 
   if (profileLoading && !profile) {
     return (
@@ -167,6 +214,7 @@ export function DashboardPage() {
             .map((f) => f.slice(f.indexOf('-') + 1))
 
           const filtered = projects.filter((p: ProjectRegistryItem) => {
+            if (p.visible === false) return false
             const haystack = norm([p.title, p.description, p.category].join(' '))
             if (searchTerm && !haystack.includes(searchTerm)) return false
 

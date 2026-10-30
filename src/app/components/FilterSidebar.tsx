@@ -1,10 +1,11 @@
 import { ChevronDown, ChevronUp, Lock } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { getVisibleProjects } from '@/config/projects'
 import { useAuthStore } from '@/stores/authStore'
 import { isStaffRole } from '@/types/domain'
 import { useMyIndustryAccess } from '@/hooks/useMyIndustryAccess'
+import { ProjectManagementService } from '@/services/projectManagementService'
 
 interface FilterSection {
   title: string
@@ -12,11 +13,25 @@ interface FilterSection {
 }
 
 function buildDefaultSections(): FilterSection[] {
-  const counts = getVisibleProjects().reduce<Record<string, number>>((acc, project) => {
+  const counts: Record<string, number> = {}
+  for (const project of getVisibleProjects()) {
     const label = project.category?.trim() || 'Other'
-    acc[label] = (acc[label] ?? 0) + 1
-    return acc
-  }, {})
+    counts[label] = (counts[label] ?? 0) + 1
+  }
+
+  try {
+    const local = ProjectManagementService.getLocalCatalog()
+    const seen = new Set(getVisibleProjects().map((p) => p.slug))
+    for (const d of local) {
+      if (d.status === 'published' && d.visibility === 'visible' && !seen.has(d.slug)) {
+        seen.add(d.slug)
+        const ind = d.industry?.trim() || 'Other'
+        counts[ind] = (counts[ind] ?? 0) + 1
+      }
+    }
+  } catch {
+    // ignore
+  }
 
   return [
     {
@@ -53,7 +68,16 @@ export function FilterSidebar({ sections, selectedFilters: controlled, onSelecte
   const { allowedIndustries, loading: accessLoading } = useMyIndustryAccess()
   const isStaff = profile ? isStaffRole(profile.role) : false
 
-  const filterSections = sections ?? defaultSections
+  const [computedSections, setComputedSections] = useState<FilterSection[]>(buildDefaultSections)
+
+  useEffect(() => {
+    if (sections) return
+    const update = () => setComputedSections(buildDefaultSections())
+    window.addEventListener('aa_project_catalog_changed', update)
+    return () => window.removeEventListener('aa_project_catalog_changed', update)
+  }, [sections])
+
+  const filterSections = sections ?? computedSections
 
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['Industry']))
   const [internalSelected, setInternalSelected] = useState<Set<string>>(new Set())
